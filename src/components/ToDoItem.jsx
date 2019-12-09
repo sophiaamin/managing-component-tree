@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 // stateless component because it is not
 // trying to change itself or anything else.
@@ -7,31 +7,17 @@ import React, { useState } from "react";
 // props are READ ONLY - cannot modify
 // you can add state to the components
 function ToDoItem(props) {
-  const [toDoDone, setToDoDone] = useState(false);
-
-  function toDoComplete() {
-    // use previous value iterator
-    setToDoDone(prevValue => {
-      return !prevValue;
-    });
-
-    // conditional statements:
-    // if (toDoDone === true) {
-    //   return setToDoDone(false);
-    // } else return setToDoDone(true);
-
-    // turnary operator
-    // return toDoDone ? setToDoDone(false) : setToDoDone(true);
-  }
-
   return (
-    <li
-      onClick={toDoComplete}
-      style={{ textDecoration: toDoDone ? "line-through" : "none" }}
-      back
+    // do not do!! this is not how you pass functions...this is calling them -> <div onClick={props.onChecked(props.id)}>
+    //  above is executed on rendered
+    <div
+      onClick={() => {
+        // this is only execute once the item is clicked
+        props.onChecked(props.id);
+      }}
     >
-      {props.item}
-    </li>
+      <li>{props.item}</li>
+    </div>
   );
 }
 
